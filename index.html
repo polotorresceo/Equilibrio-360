@@ -1,103 +1,691 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursos Holísticos - Promoción del Libro "Equilibrio 360"</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equilibrio 360 — Centro Holístico #1 de México</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+
+    :root{
+      --jade:#2d7a5f;
+      --jade-light:#e8f5ef;
+      --jade-mid:#4caf85;
+      --jade-deep:#1a4d3a;
+      --gold:#b8933a;
+      --gold-light:#f9f3e3;
+      --cream:#faf8f2;
+      --warm:#f0ede4;
+      --text:#2c2416;
+      --muted:#6b5e4a;
+      --soft:#a89880;
+      --scan:#4caf85;
+    }
+
+    html{scroll-behavior:smooth}
+    body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+
+    /* === FLORES FLOTANTES === */
+    #canvas-bg{
+      position:fixed;top:0;left:0;
+      width:100%;height:100%;
+      pointer-events:none;z-index:0;opacity:0.55;
+    }
+
+    /* === HEADER === */
+    header{
+      position:sticky;top:0;z-index:100;
+      background:rgba(250,248,242,0.92);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(184,147,58,0.2);
+      padding:1rem 2rem;
+      display:flex;justify-content:space-between;align-items:center;
+    }
+    .logo-text{
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.6rem;font-weight:300;letter-spacing:.08em;
+      color:var(--jade-deep);
+    }
+    .logo-text span{color:var(--gold);font-style:italic}
+    nav a{
+      font-size:.8rem;font-weight:300;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--muted);
+      text-decoration:none;margin-left:2rem;
+      transition:color .3s;
+    }
+    nav a:hover{color:var(--jade)}
+
+    /* === HERO === */
+    #hero{
+      position:relative;min-height:100vh;
+      display:flex;align-items:center;
+      background:linear-gradient(160deg,#e8f5ef 0%,#faf8f2 50%,#f9f3e3 100%);
+      overflow:hidden;
+    }
+    .hero-inner{
+      position:relative;z-index:2;
+      display:grid;grid-template-columns:1fr 1fr;gap:4rem;
+      max-width:1100px;margin:0 auto;padding:6rem 2rem;
+      align-items:center;
+    }
+    .eyebrow{
+      font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+      color:var(--gold);font-weight:400;margin-bottom:1.2rem;display:block;
+    }
+    .hero-text h1{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2.8rem,5vw,4.2rem);font-weight:300;line-height:1.1;
+      color:var(--jade-deep);margin-bottom:1.5rem;
+    }
+    .hero-text h1 em{color:var(--gold);font-style:italic}
+    .hero-text p{
+      font-size:1rem;line-height:1.8;color:var(--muted);
+      font-weight:300;max-width:420px;margin-bottom:2.5rem;
+    }
+    .hero-orb{
+      position:absolute;right:-80px;top:50%;transform:translateY(-50%);
+      width:500px;height:500px;border-radius:50%;
+      background:radial-gradient(ellipse,rgba(76,175,133,0.06) 0%,rgba(184,147,58,0.04) 50%,transparent 70%);
+      border:1px solid rgba(76,175,133,0.1);
+      animation:orbit-breathe 6s ease-in-out infinite;
+    }
+    @keyframes orbit-breathe{
+      0%,100%{transform:translateY(-50%) scale(1)}
+      50%{transform:translateY(-50%) scale(1.04)}
+    }
+
+    /* === BOTONES === */
+    .btn-primary{
+      display:inline-block;padding:.9rem 2.4rem;
+      background:var(--jade);color:#fff;
+      font-family:'Jost',sans-serif;
+      font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;
+      text-decoration:none;font-weight:400;border:none;cursor:pointer;
+      transition:background .3s,transform .2s;
+    }
+    .btn-primary:hover{background:var(--jade-deep);transform:translateY(-1px)}
+    .btn-secondary{
+      display:inline-block;padding:.75rem 2rem;
+      border:1px solid var(--jade);color:var(--jade);
+      font-family:'Jost',sans-serif;
+      font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;
+      text-decoration:none;font-weight:400;
+      transition:all .3s;background:transparent;cursor:pointer;
+    }
+    .btn-secondary:hover{background:var(--jade);color:#fff}
+    .btn-gold{
+      display:inline-block;padding:.9rem 2.4rem;
+      background:var(--gold);color:#fff;
+      font-family:'Jost',sans-serif;
+      font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;
+      text-decoration:none;font-weight:400;border:none;cursor:pointer;
+      transition:background .3s,transform .2s;
+    }
+    .btn-gold:hover{background:#9a7a2e;transform:translateY(-1px)}
+
+    /* === LIBRO COVER (hero) === */
+    .libro-wrapper{
+      position:relative;
+      display:flex;justify-content:center;align-items:center;
+    }
+    .libro-container{
+      position:relative;width:260px;
+      filter:drop-shadow(0 30px 60px rgba(45,122,95,0.25));
+    }
+    .libro-cover{
+      width:260px;border-radius:4px 12px 12px 4px;overflow:hidden;
+      background:linear-gradient(145deg,var(--jade-deep) 0%,#0f3d2e 50%,var(--jade) 100%);
+      padding:2rem 1.8rem;aspect-ratio:3/4.5;
+      display:flex;flex-direction:column;justify-content:space-between;
+      position:relative;
+    }
+    .libro-cover::before{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse at 30% 20%,rgba(184,147,58,0.15) 0%,transparent 60%);
+      pointer-events:none;
+    }
+    .libro-spine{
+      position:absolute;left:-12px;top:0;bottom:0;width:12px;
+      background:linear-gradient(90deg,#0a2a1e,var(--jade-deep));
+      border-radius:4px 0 0 4px;
+    }
+    .book-title{
+      font-family:'Cormorant Garamond',serif;
+      font-size:2rem;font-weight:300;color:#fff;
+      line-height:1.1;position:relative;z-index:1;
+    }
+    .book-title .num{
+      display:block;font-size:3.5rem;font-weight:600;
+      color:var(--gold);line-height:1;
+    }
+    .book-author{
+      font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
+      color:rgba(255,255,255,0.6);position:relative;z-index:1;
+      border-top:1px solid rgba(255,255,255,0.2);padding-top:.8rem;
+    }
+    .book-mandala{
+      position:absolute;right:-20px;top:50%;transform:translateY(-50%);
+      width:120px;height:120px;opacity:0.12;
+    }
+
+    /* === SCANNER === */
+    .scanner-wrapper{
+      position:absolute;inset:0;border-radius:4px 12px 12px 4px;
+      overflow:hidden;pointer-events:none;
+    }
+    .scan-line{
+      position:absolute;left:0;right:0;height:3px;
+      background:linear-gradient(90deg,transparent,var(--scan),rgba(76,175,133,0.6),var(--scan),transparent);
+      animation:scan 3s ease-in-out infinite;
+      box-shadow:0 0 12px rgba(76,175,133,0.8);
+    }
+    .scan-glow{
+      position:absolute;left:0;right:0;height:60px;
+      background:linear-gradient(180deg,transparent,rgba(76,175,133,0.08),transparent);
+      animation:scan 3s ease-in-out infinite;
+    }
+    @keyframes scan{
+      0%{top:-5px;opacity:0}
+      10%{opacity:1}
+      90%{opacity:1}
+      100%{top:100%;opacity:0}
+    }
+    .scan-corners{position:relative}
+    .scan-corners::before,.scan-corners::after{
+      content:'';position:absolute;width:20px;height:20px;
+      border-color:var(--scan);border-style:solid;
+      box-shadow:0 0 8px rgba(76,175,133,0.5);z-index:10;
+    }
+    .scan-corners::before{top:8px;left:8px;border-width:2px 0 0 2px}
+    .scan-corners::after{bottom:8px;right:8px;border-width:0 2px 2px 0}
+    .pulse-ring{
+      position:absolute;inset:-15px;border-radius:8px 18px 18px 8px;
+      border:1px solid rgba(76,175,133,0.3);
+      animation:pulse-ring 3s ease-in-out infinite;
+      pointer-events:none;
+    }
+    .pulse-ring.delayed{inset:-28px;animation-delay:.5s;opacity:.5}
+    @keyframes pulse-ring{
+      0%,100%{opacity:0;transform:scale(.97)}
+      50%{opacity:1;transform:scale(1)}
+    }
+
+    /* === SHARED SECTION STYLES === */
+    section{position:relative;z-index:1}
+    .section-inner{max-width:1100px;margin:0 auto;padding:6rem 2rem}
+    .section-label{
+      font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;
+      color:var(--gold);font-weight:400;margin-bottom:1rem;display:block;
+    }
+    .section-title{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2rem,4vw,3rem);font-weight:300;line-height:1.2;
+      color:var(--jade-deep);margin-bottom:3rem;
+    }
+    .divider{
+      width:60px;height:1px;
+      background:linear-gradient(90deg,var(--jade),var(--gold));
+      margin:1.5rem 0;
+    }
+
+    /* === CURSOS === */
+    #cursos{background:var(--warm)}
+    .cursos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+    .curso-card{
+      background:var(--cream);padding:2.5rem 2rem;
+      position:relative;overflow:hidden;
+      transition:transform .3s;
+    }
+    .curso-card::before{
+      content:'';position:absolute;top:0;left:0;bottom:0;width:2px;
+      background:linear-gradient(180deg,var(--jade),var(--gold));
+      transform:scaleY(0);transition:transform .4s;transform-origin:bottom;
+    }
+    .curso-card:hover::before{transform:scaleY(1)}
+    .curso-card:hover{transform:translateY(-4px)}
+    .curso-icon{
+      width:48px;height:48px;margin-bottom:1.5rem;
+      background:var(--jade-light);border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .curso-num{
+      font-family:'Cormorant Garamond',serif;
+      font-size:3rem;font-weight:300;color:rgba(45,122,95,0.08);
+      position:absolute;top:1rem;right:1.5rem;line-height:1;
+    }
+    .curso-card h3{
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.4rem;font-weight:400;color:var(--jade-deep);
+      margin-bottom:.8rem;
+    }
+    .curso-card p{
+      font-size:.9rem;line-height:1.7;color:var(--muted);
+      font-weight:300;margin-bottom:1.5rem;
+    }
+
+    /* === LIBRO SECTION === */
+    #libro{
+      background:linear-gradient(135deg,var(--jade-deep) 0%,#0f3d2e 60%,#162e22 100%);
+      color:#fff;position:relative;overflow:hidden;
+    }
+    #libro::before{
+      content:'';position:absolute;inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234caf85' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .libro-section-grid{
+      display:grid;grid-template-columns:1fr 1.2fr;gap:6rem;
+      align-items:center;position:relative;z-index:1;
+    }
+    .libro-features{list-style:none;margin:2rem 0 2.5rem}
+    .libro-features li{
+      display:flex;align-items:flex-start;gap:1rem;
+      padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,0.08);
+      font-size:.95rem;font-weight:300;line-height:1.5;color:rgba(255,255,255,0.8);
+    }
+    .feat-check{
+      width:20px;height:20px;flex-shrink:0;margin-top:2px;
+      background:rgba(76,175,133,0.2);border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      color:var(--jade-mid);font-size:.7rem;
+    }
+    .section-title-light{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;line-height:1.2;
+      color:#fff;margin-bottom:1rem;
+    }
+    .section-title-light em{color:var(--gold);font-style:italic}
+    .section-label-light{
+      font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;
+      color:rgba(184,147,58,0.9);font-weight:400;margin-bottom:1rem;display:block;
+    }
+
+    /* libro grande en section #libro */
+    .libro-big{
+      width:300px;border-radius:4px 14px 14px 4px;overflow:hidden;
+      background:linear-gradient(145deg,#0a2f20 0%,#1a4d3a 40%,#0f3d2e 100%);
+      padding:2.5rem 2rem;aspect-ratio:3/4.5;
+      display:flex;flex-direction:column;justify-content:space-between;
+      position:relative;
+      filter:drop-shadow(0 40px 80px rgba(0,0,0,0.5));
+    }
+    .libro-big-spine{
+      position:absolute;left:-14px;top:0;bottom:0;width:14px;
+      background:linear-gradient(90deg,#040f09,#0a2a1e);
+      border-radius:4px 0 0 4px;
+    }
+
+    /* === TERAPEUTA === */
+    #terapeuta{background:var(--cream)}
+    .terapeuta-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:5rem;align-items:center}
+    .terapeuta-foto{
+      width:280px;height:340px;
+      background:linear-gradient(145deg,var(--jade-light),#d4ede2);
+      border-radius:40% 60% 60% 40% / 50% 40% 60% 50%;
+      display:flex;align-items:center;justify-content:center;
+      position:relative;overflow:hidden;
+      animation:morph 8s ease-in-out infinite;
+    }
+    .terapeuta-foto .initials{
+      font-family:'Cormorant Garamond',serif;
+      font-size:5rem;font-weight:300;color:rgba(45,122,95,0.25);
+    }
+    @keyframes morph{
+      0%,100%{border-radius:40% 60% 60% 40% / 50% 40% 60% 50%}
+      50%{border-radius:60% 40% 40% 60% / 40% 60% 50% 50%}
+    }
+    .terapeuta-foto-ring{
+      position:absolute;inset:-20px;
+      border-radius:44% 64% 64% 44% / 54% 44% 64% 54%;
+      border:1px solid rgba(45,122,95,0.15);
+      animation:morph 8s ease-in-out infinite;
+      pointer-events:none;
+    }
+    .quote{
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.2rem;font-style:italic;
+      color:var(--jade);line-height:1.6;
+      border-left:2px solid var(--gold);padding-left:1.5rem;
+      margin:1.5rem 0 2rem;
+    }
+
+    /* === FOOTER === */
+    footer{
+      background:var(--jade-deep);color:rgba(255,255,255,0.5);
+      text-align:center;padding:2.5rem;
+      font-size:.8rem;letter-spacing:.1em;
+    }
+    footer strong{color:var(--gold)}
+
+    /* === REVEAL === */
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}
+    .reveal.visible{opacity:1;transform:none}
+    .reveal.delay-1{transition-delay:.15s}
+    .reveal.delay-2{transition-delay:.30s}
+
+    /* === RESPONSIVE === */
+    @media(max-width:900px){
+      .hero-inner{grid-template-columns:1fr;text-align:center}
+      .hero-text p{max-width:100%}
+      .hero-orb{display:none}
+      .cursos-grid{grid-template-columns:1fr}
+      .libro-section-grid{grid-template-columns:1fr;gap:3rem}
+      .terapeuta-grid{grid-template-columns:1fr;text-align:center}
+      .terapeuta-foto{margin:0 auto}
+    }
+    @media(max-width:600px){
+      nav{display:none}
+      .libro-wrapper{margin-bottom:3rem}
+      .libro-big{width:240px}
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1 class="logo">Cursos Holísticos</h1>
-            <nav>
-                <ul>
-                    <li><a href="#cursos">Nuestros Cursos</a></li>
-                    <li><a href="#libro">El Libro</a></li>
-                    <li><a href="#terapeuta">La Terapeuta</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <section id="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h2>Descubre tu Equilibrio Interior</h2>
-                <p>Explora un mundo de bienestar a través de nuestros cursos holísticos. Encuentra la paz, la sanación y el crecimiento personal que buscas.</p>
-                <a href="#cursos" class="btn btn-primary">Ver Cursos</a>
+<canvas id="canvas-bg"></canvas>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-text">Equilibrio <span>360</span></div>
+  <nav>
+    <a href="#cursos">Cursos</a>
+    <a href="#libro">El Libro</a>
+    <a href="#terapeuta">La Terapeuta</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-orb"></div>
+  <div class="hero-inner">
+    <div class="hero-text reveal">
+      <span class="eyebrow">El Centro Holístico #1 de México</span>
+      <h1>Descubre tu<br><em>Equilibrio</em><br>Interior</h1>
+      <div class="divider"></div>
+      <p>Un espacio sagrado donde el cuerpo, la mente y el espíritu se encuentran. Transforma tu vida con sabiduría ancestral y técnicas modernas de sanación.</p>
+      <a href="#cursos" class="btn-primary">Explorar Cursos</a>
+    </div>
+
+    <div class="libro-wrapper reveal delay-1">
+      <div style="position:relative;display:inline-block">
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring delayed"></div>
+        <div class="libro-container">
+          <div class="libro-spine"></div>
+          <div class="libro-cover scan-corners">
+            <svg class="book-mandala" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="48" fill="none" stroke="white" stroke-width="0.5"/>
+              <circle cx="50" cy="50" r="35" fill="none" stroke="white" stroke-width="0.5"/>
+              <circle cx="50" cy="50" r="20" fill="none" stroke="white" stroke-width="0.5"/>
+              <line x1="50" y1="2" x2="50" y2="98" stroke="white" stroke-width="0.3"/>
+              <line x1="2" y1="50" x2="98" y2="50" stroke="white" stroke-width="0.3"/>
+              <line x1="15" y1="15" x2="85" y2="85" stroke="white" stroke-width="0.3"/>
+              <line x1="85" y1="15" x2="15" y2="85" stroke="white" stroke-width="0.3"/>
+              <polygon points="50,10 58,42 90,50 58,58 50,90 42,58 10,50 42,42" fill="none" stroke="white" stroke-width="0.5"/>
+            </svg>
+            <div>
+              <div class="book-title">
+                <span class="num">360</span>
+                Equilibrio
+              </div>
             </div>
-        </div>
-    </section>
-
-    <section id="cursos">
-        <div class="container">
-            <h2>Nuestros Cursos</h2>
-            <div class="cursos-grid">
-                <div class="curso-card">
-                    <img src="https://via.placeholder.com/300x200" alt="Imagen del Curso 1">
-                    <h3>Meditación para la Calma</h3>
-                    <p>Aprende técnicas sencillas para reducir el estrés, mejorar la concentración y encontrar la paz en tu día a día.</p>
-                    <a href="#" class="btn btn-secondary">Más Información</a>
-                </div>
-                <div class="curso-card">
-                    <img src="https://via.placeholder.com/300x200" alt="Imagen del Curso 2">
-                    <h3>Yoga para Principiantes</h3>
-                    <p>Iníciate en el yoga con posturas básicas y respiración consciente. Mejora tu flexibilidad, fuerza y bienestar general.</p>
-                    <a href="#" class="btn btn-secondary">Más Información</a>
-                </div>
-                <div class="curso-card">
-                    <img src="https://via.placeholder.com/300x200" alt="Imagen del Curso 3">
-                    <h3>Reiki Nivel I</h3>
-                    <p>Conecta con la energía universal para la sanación propia y de otros. Aprende los fundamentos del Reiki y sus aplicaciones.</p>
-                    <a href="#" class="btn btn-secondary">Más Información</a>
-                </div>
+            <div class="book-author">Ly Badillo · Terapeuta Holística</div>
+            <div class="scanner-wrapper">
+              <div class="scan-glow"></div>
+              <div class="scan-line"></div>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section id="libro">
-        <div class="container">
-            <div class="libro-grid">
-                <div class="libro-imagen">
-                    <img src="https://via.placeholder.com/300x450" alt="Portada del Libro Equilibrio 360">
+<!-- CURSOS -->
+<section id="cursos">
+  <div class="section-inner">
+    <span class="section-label">Nuestras Disciplinas</span>
+    <h2 class="section-title reveal">Caminos hacia<br>la Sanación</h2>
+    <div class="cursos-grid">
+
+      <div class="curso-card reveal">
+        <span class="curso-num">01</span>
+        <div class="curso-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d7a5f" stroke-width="1.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 8v4l3 3"/>
+          </svg>
+        </div>
+        <h3>Meditación para la Calma</h3>
+        <p>Técnicas milenarias para reducir el estrés, despertar la conciencia y encontrar el silencio sagrado en tu interior.</p>
+        <a href="#" class="btn-secondary">Conocer más</a>
+      </div>
+
+      <div class="curso-card reveal delay-1">
+        <span class="curso-num">02</span>
+        <div class="curso-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d7a5f" stroke-width="1.5" stroke-linecap="round">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        </div>
+        <h3>Yoga para Principiantes</h3>
+        <p>Posturas conscientes, respiración y movimiento que unifican cuerpo y espíritu para un bienestar profundo y duradero.</p>
+        <a href="#" class="btn-secondary">Conocer más</a>
+      </div>
+
+      <div class="curso-card reveal delay-2">
+        <span class="curso-num">03</span>
+        <div class="curso-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d7a5f" stroke-width="1.5" stroke-linecap="round">
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+            <path d="M12 18a6 6 0 100-12 6 6 0 000 12z"/>
+            <circle cx="12" cy="12" r="2" fill="#2d7a5f"/>
+          </svg>
+        </div>
+        <h3>Reiki Nivel I</h3>
+        <p>Conecta con la energía universal. Aprende los fundamentos del Reiki para la sanación propia y el despertar de tu fuerza vital.</p>
+        <a href="#" class="btn-secondary">Conocer más</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- LIBRO -->
+<section id="libro">
+  <div class="section-inner">
+    <div class="libro-section-grid">
+
+      <div class="reveal">
+        <span class="section-label-light">Nueva Obra</span>
+        <h2 class="section-title-light"><em>"Equilibrio 360"</em><br>Tu Guía para el<br>Bienestar Integral</h2>
+        <div class="divider"></div>
+        <p style="color:rgba(255,255,255,0.65);line-height:1.8;font-weight:300;margin-bottom:1rem">
+          Una obra transformadora de la terapeuta Ly Badillo. Un viaje profundo hacia la armonía física, mental y espiritual que necesitas para vivir plenamente.
+        </p>
+        <ul class="libro-features">
+          <li>
+            <span class="feat-check">✓</span>
+            Enfoque holístico 360° para el bienestar integral
+          </li>
+          <li>
+            <span class="feat-check">✓</span>
+            Técnicas prácticas y ejercicios de autosanación
+          </li>
+          <li>
+            <span class="feat-check">✓</span>
+            Meditaciones guiadas y trabajo de respiración
+          </li>
+          <li>
+            <span class="feat-check">✓</span>
+            Nutrición energética y alimentación consciente
+          </li>
+        </ul>
+        <a href="#" class="btn-gold">Ver en Hotmart →</a>
+      </div>
+
+      <div class="reveal delay-1" style="display:flex;justify-content:center">
+        <div style="position:relative;display:inline-block">
+          <div style="position:absolute;inset:-20px;border-radius:8px 20px 20px 8px;border:1px solid rgba(76,175,133,0.25);animation:pulse-ring 3s ease-in-out infinite;pointer-events:none"></div>
+          <div style="position:absolute;inset:-38px;border-radius:10px 24px 24px 10px;border:1px solid rgba(76,175,133,0.12);animation:pulse-ring 3s ease-in-out infinite;animation-delay:.6s;pointer-events:none"></div>
+          <div style="position:relative">
+            <div class="libro-big-spine"></div>
+            <div class="libro-big scan-corners">
+              <svg class="book-mandala" style="opacity:.18;right:-10px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="48" fill="none" stroke="white" stroke-width="0.5"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="white" stroke-width="0.5"/>
+                <circle cx="50" cy="50" r="20" fill="none" stroke="white" stroke-width="0.5"/>
+                <line x1="50" y1="2" x2="50" y2="98" stroke="white" stroke-width="0.3"/>
+                <line x1="2" y1="50" x2="98" y2="50" stroke="white" stroke-width="0.3"/>
+                <line x1="15" y1="15" x2="85" y2="85" stroke="white" stroke-width="0.3"/>
+                <line x1="85" y1="15" x2="15" y2="85" stroke="white" stroke-width="0.3"/>
+                <polygon points="50,10 58,42 90,50 58,58 50,90 42,58 10,50 42,42" fill="none" stroke="white" stroke-width="0.5"/>
+              </svg>
+              <div>
+                <div class="book-title" style="font-size:2.4rem">
+                  <span class="num" style="font-size:4.5rem">360</span>
+                  Equilibrio
                 </div>
-                <div class="libro-content">
-                    <h2>"Equilibrio 360": Tu Guía para el Bienestar Integral</h2>
-                    <p>Descubre el nuevo libro de la terapeuta Ly Badillo. Una obra inspiradora que te guiará en tu camino hacia la armonía física, mental y espiritual.</p>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Enfoque holístico para el bienestar.</li>
-                        <li><i class="fas fa-check"></i> Técnicas prácticas para la autosanación.</li>
-                        <li><i class="fas fa-check"></i> Ejercicios de meditación y respiración.</li>
-                        <li><i class="fas fa-check"></i> Consejos para una alimentación equilibrada.</li>
-                    </ul>
-                    <a href="#" class="btn btn-primary">Ver en Hotmart</a>
-                </div>
+              </div>
+              <div class="book-author">Ly Badillo · Terapeuta Holística</div>
+              <div class="scanner-wrapper">
+                <div class="scan-glow"></div>
+                <div class="scan-line"></div>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <section id="terapeuta">
-        <div class="container">
-            <div class="terapeuta-grid">
-                <div class="terapeuta-imagen">
-                    <img src="https://via.placeholder.com/300x300" alt="Ly Badillo - Terapeuta">
-                </div>
-                <div class="terapeuta-content">
-                    <h2>Ly Badillo: Tu Guía en el Camino</h2>
-                    <p>Terapeuta holística con años de experiencia acompañando a personas en sus procesos de sanación y crecimiento personal. Apasionada por el bienestar integral y la conexión cuerpo-mente-espíritu.</p>
-                    <a href="#" class="btn btn-secondary">Contactar</a>
-                </div>
-            </div>
+    </div>
+  </div>
+</section>
+
+<!-- TERAPEUTA -->
+<section id="terapeuta">
+  <div class="section-inner">
+    <div class="terapeuta-grid">
+
+      <div class="reveal" style="display:flex;justify-content:center">
+        <div style="position:relative">
+          <div class="terapeuta-foto-ring"></div>
+          <div class="terapeuta-foto">
+            <span class="initials">Ly</span>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2023 Cursos Holísticos. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+      <div class="reveal delay-1">
+        <span class="section-label">Tu Guía</span>
+        <h2 class="section-title">Ly Badillo</h2>
+        <div class="divider"></div>
+        <blockquote class="quote">
+          "La sanación no es un destino, es un camino que recorremos juntos, un paso consciente a la vez."
+        </blockquote>
+        <p style="color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:2rem">
+          Terapeuta holística con años de experiencia acompañando almas en sus procesos de sanación y crecimiento personal. Apasionada por el bienestar integral y la conexión sagrada entre cuerpo, mente y espíritu.
+        </p>
+        <a href="#" class="btn-secondary">Conectar con Ly</a>
+      </div>
 
-    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2025 <strong>Equilibrio 360</strong> · Todos los derechos reservados · El Centro Holístico #1 de México</p>
+</footer>
+
+<script>
+// === FLORES FLOTANTES ===
+const canvas = document.getElementById('canvas-bg');
+const ctx = canvas.getContext('2d');
+let W, H, flowers = [];
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const colors = [
+  'rgba(76,175,133',
+  'rgba(184,147,58',
+  'rgba(45,122,95',
+  'rgba(232,245,239'
+];
+
+class Petal {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H + H;
+    this.r = Math.random() * 3 + 1.5;
+    this.petals = Math.floor(Math.random() * 3) + 4;
+    this.color = colors[Math.floor(Math.random() * colors.length)];
+    this.speed = Math.random() * 0.4 + 0.15;
+    this.drift = Math.random() * 0.8 - 0.4;
+    this.rot = Math.random() * Math.PI * 2;
+    this.rotSpeed = (Math.random() - 0.5) * 0.02;
+    this.opacity = Math.random() * 0.5 + 0.2;
+  }
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rot);
+    ctx.globalAlpha = this.opacity;
+    for (let i = 0; i < this.petals; i++) {
+      ctx.save();
+      ctx.rotate((i / this.petals) * Math.PI * 2);
+      ctx.beginPath();
+      ctx.ellipse(0, -this.r * 1.8, this.r * 0.55, this.r * 1.6, 0, 0, Math.PI * 2);
+      ctx.fillStyle = `${this.color},${this.opacity})`;
+      ctx.fill();
+      ctx.restore();
+    }
+    ctx.beginPath();
+    ctx.arc(0, 0, this.r * 0.4, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,220,0.6)';
+    ctx.fill();
+    ctx.restore();
+  }
+  update() {
+    this.y -= this.speed;
+    this.x += this.drift + Math.sin(this.y * 0.02) * 0.3;
+    this.rot += this.rotSpeed;
+    if (this.y < -20) this.reset();
+  }
+}
+
+for (let i = 0; i < 60; i++) {
+  const p = new Petal();
+  p.y = Math.random() * H; // distribuir al inicio
+  flowers.push(p);
+}
+
+function loop() {
+  ctx.clearRect(0, 0, W, H);
+  flowers.forEach(f => { f.update(); f.draw(); });
+  requestAnimationFrame(loop);
+}
+loop();
+
+// === SCROLL REVEAL ===
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(r => observer.observe(r));
+</script>
+
 </body>
 </html>
